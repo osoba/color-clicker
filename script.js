@@ -1,4 +1,7 @@
 "use strict";
+const Tone = require('tone');
+require('regenerator-runtime');
+
 document.addEventListener('DOMContentLoaded', () => {
 
   const WIDTH = 10, HEIGHT = 12, BOX_SIDE = 48, NUM_OF_COLORS = 7;
@@ -74,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		//console.log('click', x, y);
 
 		clear_block( x, y, data[x][y] );
+		playSound();
 		slide_blocks();
 		draw_canvas();	
 	}
@@ -89,7 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			s = '';
 		}
 	}
-  //print_data()
+	//print_data()
+	
+	function playSound() {
+		const synth = new Tone.Synth().toDestination();
+		synth.triggerAttackRelease("C4", "8n");
+	}
 
 	canvas.addEventListener('mouseup', function(e){ canvas_click(e); }, false);
 	canvas.addEventListener('touchend', function(e){ canvas_click(e); }, false);
