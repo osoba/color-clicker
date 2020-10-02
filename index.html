@@ -2,11 +2,33 @@
 <html lang='en'>
 <meta charset='utf-8' />
 <title>Color Clicker</title>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'> 
-<link href='./style.css' rel='stylesheet' />
-<script src='./script.js'></script>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+<link href='./style/style.css' rel='stylesheet' />
+<script src="./script/landing.js"></script>
 
 <body>
-<canvas id='game' width='480' height='576'></canvas>
+  <div class="container">
+    <header class="landing-header">
+      <h1>
+        Weclome to Color Clicker Game
+      </h1>
+    </header>
+    <div class="options">
+      <h2>Choose Dimensions </h2>
+      <div class="game-size">
+
+        <button class="size1 ">8*10</button>
+        <button class="size2 selected">10*12</button>
+        <button class="size3">12*14</button>
+      </div>
+      <h2>Choose Number Of Colors </h2>
+      <div class="number-of-colors">
+        <input class="color-number" type="number" min="5" max="10" value="7"
+          placeholder="Enter number Between 5 and 10">
+      </div>
+      <button id="start-btn" class="start">Start</button>
+    </div>
+  </div>
 </body>
+
 </html>
