@@ -73,9 +73,21 @@ document.addEventListener('DOMContentLoaded', () => {
     let [x, y] = canvas_get_block_coords(e);
     //console.log('click', x, y);
 
-    clear_block( x, y, data[x][y] );
-    slide_blocks();
-    draw_canvas();  
+    // Only if there's a same-color block beside it
+    if (
+      // Left
+      (x > 0 && data[x][y] === data[x-1][y])
+      // Right
+      || (x < WIDTH - 1 && data[x][y] === data[x+1][y])
+      // Up
+      || (y > 0 && data[x][y] === data[x][y-1])
+      // Down
+      || (y < HEIGHT - 1 && data[x][y] === data[x][y+1])
+    ) {
+      clear_block( x, y, data[x][y] );
+      slide_blocks();
+      draw_canvas();
+    }
   }
   
   
