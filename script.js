@@ -48,10 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function slide_blocks(){
+    console.log('sliding blocks');
     for(let i=0; i<WIDTH; i++)
       for(let j=HEIGHT; j>0; j-- )
-        if( data[i][j] == -1)
-          [ data[i][j], data[i][j-1] ] = [ data[i][j-1], data[i][j] ];
+        if( data[i][j] == -1) {
+          let k = j-1;
+          while ( data[i][k] == -1 && k > 0) k--;
+          [ data[i][j], data[i][k] ] = [ data[i][k], data[i][j] ]; // swap current empty block with the first colored above it
+        }
 
     for(let i=0; i<WIDTH; i++)
       for(let j=0; j<HEIGHT; j++ )
@@ -73,16 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let [x, y] = canvas_get_block_coords(e);
     //console.log('click', x, y);
 
-    // Only if there's a same-color block beside it
-    if (
-      // Left
-      (x > 0 && data[x][y] === data[x-1][y])
-      // Right
-      || (x < WIDTH - 1 && data[x][y] === data[x+1][y])
-      // Up
-      || (y > 0 && data[x][y] === data[x][y-1])
-      // Down
-      || (y < HEIGHT - 1 && data[x][y] === data[x][y+1])
+    // only destroy block if there's a same-color block next to it
+    if ( (x > 0 && data[x][y] === data[x-1][y]) // left
+      || (x < WIDTH - 1 && data[x][y] === data[x+1][y]) // right
+      || (y > 0 && data[x][y] === data[x][y-1]) // up
+      || (y < HEIGHT - 1 && data[x][y] === data[x][y+1]) // down 
     ) {
       clear_block( x, y, data[x][y] );
       slide_blocks();
